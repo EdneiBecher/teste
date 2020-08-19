@@ -27,7 +27,8 @@ ggmap(get_stamenmap(bbox, zoom = 14, maptype = "watercolor"))
 ggmap(get_stamenmap(bbox, zoom = 14, maptype = "toner-2010"))
 ggmap(get_stamenmap(bbox, zoom = 14, maptype = "terrain-lines"))
 
-
+library(ggplot2)
+library(ggmap)
 library(caret)
 data(Sacramento)
 height <- max(Sacramento$latitude) - min(Sacramento$latitude)
