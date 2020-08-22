@@ -43,3 +43,6 @@ map <- get_stamenmap(sac_borders, zoom = 10, maptype = "toner-lite")
 ggmap(map)
 
 
+#Verificando as variáveis
+library(dplyr)
+glimpse(mudas)
