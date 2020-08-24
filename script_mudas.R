@@ -15,18 +15,37 @@ tapply(mudas$altura, mudas$especie, mean)
 tapply(mudas$altura, mudas$especie, median)
 tapply(mudas$altura, mudas$especie, sd)
 
-# calculando media, mediana e desvio pd por especie e por bloco
+# calculando media, mediana e desvio pd por especie e por bloco e substrato
 
 mudas$bloco<- as.factor(mudas$bloco)
+mudas$substrato<- as.factor((mudas$substrato))
 
 library(dplyr)
 
 mudas %>%
-  group_by(especie, bloco) %>% 
+  group_by(especie, bloco, substrato) %>% 
   summarise(media=mean(altura), mediana=median(altura), desvio=sd(altura))
 
+
 # fazendo o mesmo com tapply
-tapply(mudas$altura, list(mudas$especie, mudas$bloco), mean)
+# também é possivel incluir na.rm=TRUE no final, depois da função para remover NAs
+tapply(mudas$altura, list(mudas$especie, mudas$bloco, mudas$substrato), mean)
 tapply(mudas$altura, list(mudas$especie, mudas$bloco), median)
 tapply(mudas$altura, list(mudas$especie, mudas$bloco), sd)
+
+
+# fazendo o boxplot
+
+boxplot(mudas$altura)
+boxplot(altura~especie, data=mudas)
+
+
+# boxplot com ggplot e dplyr
+
+library(ggplot2)
+
+mudas %>% 
+  group_by(especie) %>% 
+  ggplot(aes(x= especie, y=altura))+geom_boxplot()+
+  facet_wrap(~bloco)
 
